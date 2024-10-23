@@ -2,7 +2,7 @@ import { Elysia, t } from "elysia";
 import crypto from "crypto";
 import RegistrationService from "../services/registration";
 import { CreateRegistrationFormSchema } from "../schema/registrations";
-const cardController = new Elysia({ prefix: "/registration" })
+const registrationController = new Elysia({ prefix: "/registration" })
   // assigning service
     .decorate({
       Service: new RegistrationService,
@@ -43,4 +43,4 @@ const cardController = new Elysia({ prefix: "/registration" })
     // }
   );
 
-export default cardController;
+export default registrationController;
