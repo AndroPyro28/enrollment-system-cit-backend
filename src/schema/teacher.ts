@@ -66,44 +66,44 @@ export const FormUploadExcelTeachersSchema = z.object({
 // });
 
 // this shema check the content of the excel file
-export const ValidateTeachersSchema = z
-  .array(
-    z.object({
-      first_name: z.string({
-        required_error: "'First Name' must not be empty",
-      }),
-      last_name: z.string({
-        required_error: "'Last Name' must not be empty",
-      }),
-      middle_name: z.string({
-        required_error: "'First name' must not be empty",
-      }),
-      extension: z.string().optional(),
-      dob: z.coerce
-        .date({
-          errorMap: (error) => {
-            console.log("🚀 ~ file: teacher.ts:47 ~ error:", error);
-            if (error.code === "invalid_date") {
-              return {
-                message:
-                  "'Day of Birth' is required and must be a valid date format ex. DD/MM/YYYY",
-              };
-            }
-            return {
-              message: "Invalid date format",
-            };
-          },
-        })
-        .min(
-          new Date("1900-01-01"),
-          "Date of birth must be greater than 1900-01-01"
-        ),
-      gender: z.enum(["MALE", "FEMALE"], {
-        required_error: "'Gender' must not be empty",
-      }),
-      // add more fields here
+
+export const ValidateTeacherSchema = z.object({
+  first_name: z.string({
+    required_error: "'First Name' must not be empty",
+  }),
+  last_name: z.string({
+    required_error: "'Last Name' must not be empty",
+  }),
+  middle_name: z.string({
+    required_error: "'First name' must not be empty",
+  }),
+  extension: z.string().optional(),
+  dob: z.coerce
+    .date({
+      errorMap: (error) => {
+        console.log("🚀 ~ file: teacher.ts:47 ~ error:", error);
+        if (error.code === "invalid_date") {
+          return {
+            message:
+              "'Day of Birth' is required and must be a valid date format ex. DD/MM/YYYY",
+          };
+        }
+        return {
+          message: "Invalid date format",
+        };
+      },
     })
-  )
+    .min(
+      new Date("1900-01-01"),
+      "Date of birth must be greater than 1900-01-01"
+    ),
+  gender: z.enum(["MALE", "FEMALE"], {
+    required_error: "'Gender' must not be empty",
+  }),
+  // add more fields here
+})
+export const ValidateTeachersSchema = z
+  .array(ValidateTeacherSchema)
   .max(100, "Maximum of 100 teachers only");
 
 // form types
@@ -114,3 +114,4 @@ export type FormUploadExcelTeachersSchemaT = z.infer<
 // type use inside api
 export type TeacherT = z.infer<typeof TeacherSchema>;
 export type CreateTeachersT = z.infer<typeof ValidateTeachersSchema>;
+export type CreateTeacherT = z.infer<typeof ValidateTeacherSchema>;
