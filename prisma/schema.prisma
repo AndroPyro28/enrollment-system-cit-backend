@@ -171,11 +171,11 @@ model Profile {
   user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
   userId String @unique
 
-  section   Section @relation(fields: [sectionId], references: [id], onDelete: Cascade)
-  sectionId String
+  section   Section? @relation(fields: [sectionId], references: [id], onDelete: Cascade)
+  sectionId String?
 
-  yearLevel   YearLevel @relation(fields: [yearLevelId], references: [id], onDelete: Cascade)
-  yearLevelId String
+  yearLevel   YearLevel? @relation(fields: [yearLevelId], references: [id], onDelete: Cascade)
+  yearLevelId String?
 
   @@index([userId])
 }
@@ -185,19 +185,18 @@ model Section {
   name        String
   yearLevel   YearLevel @relation(fields: [yearLevelId], references: [id], onDelete: Cascade)
   yearLevelId String
-  createdAt DateTime  @default(now())
-  updatedAt DateTime  @updatedAt
-  Profile   Profile[]
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+  Profile     Profile[]
 }
 
 model YearLevel {
-  id       String    @id @default(cuid())
-  name     String
+  id        String    @id @default(cuid())
+  name      String
   createdAt DateTime  @default(now())
   updatedAt DateTime  @updatedAt
   Profile   Profile[]
-  sections Section[]
-
+  sections  Section[]
 }
 
 model Disability {

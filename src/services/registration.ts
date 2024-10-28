@@ -11,6 +11,8 @@ class RegistrationService {
         role: "student",
         profile: {
           create: {
+            // yearLevelId:"",
+            // sectionId:"",
             age: body.age,
             dob: body.dob,
             first_name: body.first_name,

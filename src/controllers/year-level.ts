@@ -4,10 +4,12 @@ import RegistrationService from "../services/registration";
 import { CreateRegistrationFormSchema } from "../schema/registrations";
 import { CreateSectionSchema } from "../schema/section";
 import SectionService from "../services/section";
+import { CreateYearLevelSchema } from "../schema/year-level";
+import YearLevelService from "../services/year-level";
 const sectionController = new Elysia({ prefix: "/section" })
   // assigning service
   .decorate({
-    Service: new SectionService(),
+    Service: new YearLevelService(),
   })
   //assigning variables
   //   .derive(({ headers }) => {
@@ -30,7 +32,7 @@ const sectionController = new Elysia({ prefix: "/section" })
   .post(
     "/",
     async ({ body: dto, Service: service }) => {
-      const body = await CreateSectionSchema.safeParse(dto);
+      const body = await CreateYearLevelSchema.safeParse(dto);
       if (!body.success) {
         return Response.json(
           {
