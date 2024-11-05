@@ -10,7 +10,7 @@ const registrationController = new Elysia({ prefix: "/registration" })
   //assigning variables
   //   .derive(({ headers }) => {
   //     const auth = headers["authorization"];
-  //     // you can extract your jwt here
+  //     you can extract your jwt here
   //     return {
   //       isAuth: auth,
   //     };
@@ -22,9 +22,7 @@ const registrationController = new Elysia({ prefix: "/registration" })
    * global
    * scoped
    */
-  .get("/", ({ Service: service, body, params, query, headers }) =>
-    service.get()
-  )
+  .get("/", ({ Service: service, body, params, query, headers }) =>service.get())
   .post(
     "/",
     async ({ body: dto, Service: service }) => {

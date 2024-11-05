@@ -45,7 +45,7 @@ class RegistrationService {
             // .....
 
 
-            // creating guardian
+            // creating preferred learning modalities
             preferred_learning_modalities: {
               create: body.preferred_learning_modalities.map((plm, index) => ({
                 name: plm,

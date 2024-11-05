@@ -67,7 +67,7 @@ export const FormUploadExcelTeachersSchema = z.object({
 
 // this shema check the content of the excel file
 
-export const ValidateTeacherSchema = z.object({
+export const CreateTeacherSchema = z.object({
   first_name: z.string({
     required_error: "'First Name' must not be empty",
   }),
@@ -85,7 +85,7 @@ export const ValidateTeacherSchema = z.object({
         if (error.code === "invalid_date") {
           return {
             message:
-              "'Day of Birth' is required and must be a valid date format ex. DD/MM/YYYY",
+              "'Day of Birth' is required and must be a valid date format ex. MM/DD/YYYY",
           };
         }
         return {
@@ -102,8 +102,8 @@ export const ValidateTeacherSchema = z.object({
   }),
   // add more fields here
 })
-export const ValidateTeachersSchema = z
-  .array(ValidateTeacherSchema)
+export const CreateTeachersSchema = z
+  .array(CreateTeacherSchema)
   .max(100, "Maximum of 100 teachers only");
 
 // form types
@@ -113,5 +113,5 @@ export type FormUploadExcelTeachersSchemaT = z.infer<
 
 // type use inside api
 export type TeacherT = z.infer<typeof TeacherSchema>;
-export type CreateTeachersT = z.infer<typeof ValidateTeachersSchema>;
-export type CreateTeacherT = z.infer<typeof ValidateTeacherSchema>;
+export type TCreateTeachersSchema= z.infer<typeof CreateTeachersSchema>;
+export type TCreateTeacherSchema = z.infer<typeof CreateTeacherSchema>;
