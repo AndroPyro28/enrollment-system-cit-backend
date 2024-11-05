@@ -27,7 +27,7 @@ const registrationController = new Elysia({ prefix: "/teachers" })
   .post(
     "/",
     ({ body:dto, Service:service }) => {
-      const body = CreateTeachersSchema.safeParse(dto);
+      const body = CreateTeacherSchema.safeParse(dto);
         if (!body.success) {
             return Response.json(
               {
@@ -48,7 +48,7 @@ const registrationController = new Elysia({ prefix: "/teachers" })
     "/excel-bulk-create",
     ({ body:dto, Service:service }) => {
 
-      const validatedExcel = CreateTeacherSchema.safeParse(dto);
+      const validatedExcel = CreateTeachersSchema.safeParse(dto);
 
       if (!validatedExcel.success) {
         return Response.json(

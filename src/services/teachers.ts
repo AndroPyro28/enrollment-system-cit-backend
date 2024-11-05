@@ -2,11 +2,11 @@ import { calculateAge } from "../lib/calculateAge";
 import { generateEmail } from "../lib/generate-email";
 import { generateHashPassword, generatePassword } from "../lib/generate-password";
 import prisma from "../lib/prisma";
-import { CreateTeachersT, CreateTeacherT, ValidateTeachersSchema } from "../schema/teacher";
+import { TCreateTeachersSchema, TCreateTeacherSchema, CreateTeachersSchema } from "../schema/teacher";
 
 class TeachersService {
 
-  async createOne(body: CreateTeacherT) {
+  async createOne(body: TCreateTeacherSchema) {
     const gender = body.gender === "MALE" ? "male" : "female"
     const email = generateEmail(
       "teacher",
@@ -39,7 +39,7 @@ class TeachersService {
     return createdTeacher;
   }
 
-  async excelBulkCreate(body:CreateTeachersT) {
+  async excelBulkCreate(body:TCreateTeachersSchema) {
     // validate data
    
 
