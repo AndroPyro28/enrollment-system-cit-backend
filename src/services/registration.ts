@@ -90,7 +90,8 @@ class RegistrationService {
   }
 
   async get() {
-    return
+    return 'hello registration'
+
   }
 }
 

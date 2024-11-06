@@ -6,7 +6,7 @@ import { TCreateTeachersSchema, TCreateTeacherSchema, CreateTeachersSchema } fro
 
 class TeachersService {
 
-  async createOne(body: TCreateTeacherSchema) {
+  async create(body: TCreateTeacherSchema) {
     const gender = body.gender === "MALE" ? "male" : "female"
     const email = generateEmail(
       "teacher",
@@ -92,8 +92,17 @@ class TeachersService {
     }
   }
 
-  async get() {
-    return
+  async get(query:Record<string,any>) {
+    const {role} = query
+    const teachers = await prisma.user.findMany({
+      where: {
+        role
+      },
+      include: {
+        profile:true
+      }
+    })
+    return teachers
   }
 }
 

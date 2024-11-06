@@ -1,31 +1,15 @@
 import { Elysia, t } from "elysia";
-import crypto from "crypto";
 import RegistrationService from "../services/registration";
 import { CreateRegistrationFormSchema } from "../schema/registrations";
+
 const registrationController = new Elysia({ prefix: "/registration" })
-  // assigning service
   .decorate({
-    Service: new RegistrationService(),
+    registrationService: new RegistrationService(),
   })
-  //assigning variables
-  //   .derive(({ headers }) => {
-  //     const auth = headers["authorization"];
-  //     you can extract your jwt here
-  //     return {
-  //       isAuth: auth,
-  //     };
-  //   })
-  /**
-   * middleware
-   *
-   * local
-   * global
-   * scoped
-   */
-  .get("/", ({ Service: service, body, params, query, headers }) =>service.get())
+  .get("/", ({ registrationService, body, params, query, headers }) => registrationService.get())
   .post(
     "/",
-    async ({ body: dto, Service: service }) => {
+    async ({ body: dto, registrationService }) => {
       const body = await CreateRegistrationFormSchema.safeParse(dto);
       if (!body.success) {
         return Response.json(
@@ -36,7 +20,7 @@ const registrationController = new Elysia({ prefix: "/registration" })
           { status: 400 }
         );
       }
-      return service.create(body.data);
+      return registrationService.create(body.data);
     }
     // {
     //   body: t.Any(), // currently elysia doesn't support zod, so im gonna use manual validation

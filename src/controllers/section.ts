@@ -4,10 +4,10 @@ import RegistrationService from "../services/registration";
 import { CreateRegistrationFormSchema } from "../schema/registrations";
 import { CreateSectionSchema } from "../schema/section";
 import SectionService from "../services/section";
-const sectionController = new Elysia({ prefix: "/section" })
+const sectionController = new Elysia({ prefix: "/sections" })
   // assigning service
   .decorate({
-    Service: new SectionService(),
+    sectionService: new SectionService(),
   })
   //assigning variables
   //   .derive(({ headers }) => {
@@ -24,12 +24,12 @@ const sectionController = new Elysia({ prefix: "/section" })
    * global
    * scoped
    */
-  .get("/", ({ Service: service, body, params, query, headers }) =>
-    service.get()
+  .get("/", ({ sectionService, body, params, query, headers }) =>
+    sectionService.get()
   )
   .post(
     "/",
-    async ({ body: dto, Service: service }) => {
+    async ({ body: dto, sectionService }) => {
       const body = await CreateSectionSchema.safeParse(dto);
       if (!body.success) {
         return Response.json(
@@ -40,7 +40,7 @@ const sectionController = new Elysia({ prefix: "/section" })
           { status: 400 }
         );
       }
-      return service.createOne(body.data);
+      return sectionService.createOne(body.data);
     }
     // {
     //   body: t.Any(), // currently elysia doesn't support zod, so im gonna use manual validation
